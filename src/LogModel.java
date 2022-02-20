@@ -1,10 +1,8 @@
-import sun.rmi.runtime.Log;
-
 import java.io.*;
 import java.util.ArrayList;
 
 public class LogModel {
-    private static void load() {
+    public static ArrayList<LogEntry> load() {
         ObjectInputStream ins = null;
         try {
             ins = new ObjectInputStream(new FileInputStream(new File("testSave")));
@@ -21,15 +19,11 @@ public class LogModel {
                     }
                     ins.close();
                 }
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-        System.out.println(l);
+            } catch (IOException | ClassNotFoundException ignored) {}
+        return l;
 
     }
-    private static void save() {
-        LogEntry l = new LogEntry("testauthor","testmessage");
+    public static void save(ArrayList<LogEntry> logEntries) {
         ObjectOutputStream outs = null;
         try {
             outs = new ObjectOutputStream(new FileOutputStream(new File("testSave")));
@@ -38,7 +32,9 @@ public class LogModel {
         }
         try {
             if (outs != null) {
-                outs.writeObject(l);
+                for (LogEntry log: logEntries) {
+                    outs.writeObject(log);
+                }
                 outs.flush();
                 outs.close();
             }

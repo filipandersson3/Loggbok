@@ -32,8 +32,7 @@ public class LogEntry implements Serializable{
 
     @Override
     public String toString() {
-        return "LogEntry{"+ "author=" + author + ", createdAt=" + createdAt
-                + ", updatedAt=" + updatedAt + ", message='" + message + '\'' + '}';
+        return author + " " + updatedAt;
     }
 
     public void update(String newAuthor, String newMessage) {
