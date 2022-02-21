@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class LogView {
     private JComboBox comboBox1;
@@ -7,6 +8,7 @@ public class LogView {
     private JButton updateButton;
     private JButton addNewButton;
     private JPanel panel1;
+    private String filename;
 
     public JComboBox getComboBox1() {
         return comboBox1;
@@ -30,5 +32,24 @@ public class LogView {
 
     public JPanel getPanel1() {
         return panel1;
+    }
+
+    public void updateLogList(ArrayList<LogEntry> logEntries) {
+        comboBox1.removeAllItems();
+        for (LogEntry entry:
+                logEntries) {
+            comboBox1.addItem(entry);
+        }
+    }
+
+    public String getFilename() {
+        JFileChooser fc = new JFileChooser();
+        int result = fc.showOpenDialog(null);
+        if (result!=JFileChooser.APPROVE_OPTION){
+            JOptionPane.showConfirmDialog(null,
+                    "No file was chosen", "Error",JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+        return fc.getSelectedFile().getAbsolutePath();
     }
 }

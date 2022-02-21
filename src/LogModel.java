@@ -2,31 +2,34 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class LogModel {
-    public static ArrayList<LogEntry> load() {
+    private ArrayList<LogEntry> logEntries;
+    private String filename = "";
+    public LogModel() {
+        logEntries = new ArrayList<LogEntry>();
+    }
+    public ArrayList<LogEntry> load() {
         ObjectInputStream ins = null;
         try {
-            ins = new ObjectInputStream(new FileInputStream(new File("testSave")));
+            ins = new ObjectInputStream(new FileInputStream(new File(filename)));
+            logEntries.clear();
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(1);
         }
-        ArrayList<LogEntry> l = new ArrayList<>();
             try {
-                if (ins != null) {
-                    LogEntry logitem = (LogEntry) ins.readObject();
-                    while (logitem != null) {
-                        l.add(logitem);
-                        logitem = (LogEntry) ins.readObject();
-                    }
-                    ins.close();
+                LogEntry logitem = (LogEntry) ins.readObject();
+                while (logitem != null) {
+                    logEntries.add(logitem);
+                    logitem = (LogEntry) ins.readObject();
                 }
+                ins.close();
             } catch (IOException | ClassNotFoundException ignored) {}
-        return l;
-
+        return logEntries;
     }
-    public static void save(ArrayList<LogEntry> logEntries) {
+    public void save() {
         ObjectOutputStream outs = null;
         try {
-            outs = new ObjectOutputStream(new FileOutputStream(new File("testSave")));
+            outs = new ObjectOutputStream(new FileOutputStream(new File(filename)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,5 +44,19 @@ public class LogModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setLogEntries(ArrayList<LogEntry> logEntries) {
+        this.logEntries = logEntries;
+    }
+
+    public ArrayList<LogEntry> getLogEntries() {
+        logEntries = load();
+        return logEntries;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+        logEntries = load();
     }
 }
