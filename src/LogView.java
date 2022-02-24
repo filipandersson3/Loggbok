@@ -52,4 +52,9 @@ public class LogView {
         }
         return fc.getSelectedFile().getAbsolutePath();
     }
+
+    public void showLogEntry(LogEntry log) {
+        textField1.setText(log.getAuthor());
+        textField2.setText(log.getMessage());
+    }
 }

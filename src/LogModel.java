@@ -14,15 +14,17 @@ public class LogModel {
             logEntries.clear();
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(1);
         }
             try {
-                LogEntry logitem = (LogEntry) ins.readObject();
+                LogEntry logitem = null;
+                if (ins != null) {
+                    logitem = (LogEntry) ins.readObject();
                 while (logitem != null) {
                     logEntries.add(logitem);
                     logitem = (LogEntry) ins.readObject();
                 }
                 ins.close();
+                }
             } catch (IOException | ClassNotFoundException ignored) {}
         return logEntries;
     }
