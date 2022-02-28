@@ -19,6 +19,7 @@ public class LogModel {
                 LogEntry logitem = null;
                 if (ins != null) {
                     logitem = (LogEntry) ins.readObject();
+                    System.out.println(logitem);
                 while (logitem != null) {
                     logEntries.add(logitem);
                     logitem = (LogEntry) ins.readObject();

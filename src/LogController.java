@@ -35,9 +35,9 @@ public class LogController {
             ArrayList<LogEntry> newEntries = model.getLogEntries();
             LogEntry newEntry = new LogEntry(view.getTextField1().getText(),view.getTextField2().getText());
             newEntries.add(newEntry);
-            model.setLogEntries(newEntries);
+            //model.setLogEntries(newEntries);
             model.save();
-            view.updateLogList(newEntries);
+            view.addLogListItem(newEntry);
         }
     }
 
@@ -56,12 +56,13 @@ public class LogController {
             ArrayList<LogEntry> newEntries = model.getLogEntries();
             LogEntry newEntry = new LogEntry(view.getTextField1().getText(),view.getTextField2().getText());
             JComboBox comboBox1 = view.getComboBox1();
-            System.out.println((LogEntry) comboBox1.getSelectedItem());
-            System.out.println(newEntries.contains((LogEntry) comboBox1.getSelectedItem()));
+            //System.out.println((LogEntry) comboBox1.getSelectedItem());
+            //System.out.println(newEntries.get(0).equals((LogEntry) comboBox1.getSelectedItem()));
+            //System.out.println(newEntries.contains((LogEntry) comboBox1.getSelectedItem()));
             newEntries.set(newEntries.indexOf((LogEntry) comboBox1.getSelectedItem()),newEntry);
             model.setLogEntries(newEntries);
             model.save();
-            view.updateLogList(newEntries);
+            view.addLogListItem(newEntry);
         }
     }
 }

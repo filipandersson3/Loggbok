@@ -42,6 +42,20 @@ public class LogView {
         }
     }
 
+    public void addLogListItem(LogEntry entry) {
+        boolean exists = false;
+        for (int i = 0; i < comboBox1.getItemCount(); i++) {
+            if (((LogEntry)comboBox1.getItemAt(i)).getCreatedAt().getTime() == entry.getCreatedAt().getTime()) {
+                ((LogEntry) comboBox1.getItemAt(i)).update(entry.getAuthor(),entry.getMessage());
+                exists = true;
+                System.out.println("ggggggg");
+            }
+        }
+        if (!exists) {
+            comboBox1.addItem(entry);
+        }
+    }
+
     public String getFilename() {
         JFileChooser fc = new JFileChooser();
         int result = fc.showOpenDialog(null);
