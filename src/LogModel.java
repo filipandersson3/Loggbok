@@ -7,7 +7,7 @@ public class LogModel {
     public LogModel() {
         logEntries = new ArrayList<LogEntry>();
     }
-    public ArrayList<LogEntry> load() {
+    public ArrayList<LogEntry> load() { //läser alla logentries i en fil
         ObjectInputStream ins = null;
         try {
             ins = new ObjectInputStream(new FileInputStream(new File(filename)));
@@ -19,7 +19,6 @@ public class LogModel {
                 LogEntry logitem = null;
                 if (ins != null) {
                     logitem = (LogEntry) ins.readObject();
-                    System.out.println(logitem);
                 while (logitem != null) {
                     logEntries.add(logitem);
                     logitem = (LogEntry) ins.readObject();
@@ -29,7 +28,7 @@ public class LogModel {
             } catch (IOException | ClassNotFoundException ignored) {}
         return logEntries;
     }
-    public void save() {
+    public void save() { //sparar alla logentry objekt i en fil
         ObjectOutputStream outs = null;
         try {
             outs = new ObjectOutputStream(new FileOutputStream(new File(filename)));

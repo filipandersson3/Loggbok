@@ -48,18 +48,13 @@ public class LogEntry implements Serializable{
         return author != null ? author.equals(logEntry.author) : logEntry.author == null;
     }
 
-    @Override
-    public int hashCode() {
-        int result = createdAt != null ? createdAt.hashCode() : 0;
-        result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
-        result = 31 * result + (message != null ? message.hashCode() : 0);
-        result = 31 * result + (author != null ? author.hashCode() : 0);
-        return result;
-    }
-
     public void update(String newAuthor, String newMessage) {
         author = newAuthor;
         message = newMessage;
         updatedAt = new Date();
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
